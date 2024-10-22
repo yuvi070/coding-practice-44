@@ -61,15 +61,28 @@ class MemeGenerator extends Component {
     this.setState({imgUrl: event.target.value})
   }
 
+  changeTopText = event => {
+    this.setState({topText: event.target.value})
+  }
+
+  changeBottomText = event => {
+    this.setState({bottomText: event.target.value})
+  }
+
+  onSubmitForm = event => {
+    event.preventDefault()
+    this.setState({submitClicked: true})
+  }
+
   render() {
-    const {fontSize, submitClicked} = this.state
+    const {fontSize, topText, bottomText, submitClicked, imgUrl} = this.state
     return (
       <>
         <Home>
           <Body>
             <Div1>
               <MainHeading>Meme Generator</MainHeading>
-              <form>
+              <form onSubmit={this.onSubmitForm}>
                 <SubHeading>Image URL</SubHeading>
                 <InputBox
                   onChange={this.changeUrl}
@@ -105,9 +118,9 @@ class MemeGenerator extends Component {
               </form>
             </Div1>
             {submitClicked && (
-              <Div2>
-                <MemePara>dummy</MemePara>
-                <MemePara>dummy</MemePara>
+              <Div2 imageUrl={imgUrl} data-testid="name">
+                <MemePara fontSize={fontSize}>{topText}</MemePara>
+                <MemePara fontSize={fontSize}>{bottomText}</MemePara>
               </Div2>
             )}
           </Body>
